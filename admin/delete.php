@@ -1,4 +1,5 @@
 <?php
+include("navbar.php");
 
 if(isset($_GET["id"])){
 	include "db.php";
@@ -6,11 +7,21 @@ if(isset($_GET["id"])){
 	if($img!=null){
 		del($img->id);
 		unlink($img->folder.$img->src);
-		header("Location: index.php");
+		header("Location: ../");
+
 
 
 	}
+    $vid = get_vid($_GET["id"]);
+	if($vid!=null){
+		delvid($vid->id);
+		unlink($vid->folder.$vid->src);
+		header("Location: ../");
+
+	}
+	
 }
+
 
 
 ?>
