@@ -106,10 +106,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="login-master/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="login-master/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
-    <link href="https://tresplazas.com/web/img/big_punto_de_venta.png" rel="shortcut icon">
+    <link rel="shortcut icon" href="./admin/slotmachine.ico" />
     <title>Inicio de sesión</title>
 </head>
 
@@ -148,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="text-center">
                     <a class="font-italic isai5" href="">Olvidé mi contraseña</a>
-                    <a class="font-italic isai5" href="/login-master/register.php">Registrarse</a>
+                    <a class="font-italic isai5" href="login-master/register.php">Registrarse</a>
                 </div>
                 <input name="btningresar" class="btn" type="submit" value="INICIAR SESION">
             </form>
