@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require_once "config.php";
+require_once "../login-master/config.php";
  
 // Define variables and initialize with empty values
 $usuario = $password = $confirm_password = "";

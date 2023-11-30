@@ -148,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="text-center">
                     <a class="font-italic isai5" href="">Olvidé mi contraseña</a>
-                    <a class="font-italic isai5" href="login-master/register.php">Registrarse</a>
+                    <a class="font-italic isai5" href="administrador/register.php">Registrarse</a>
                 </div>
                 <input name="btningresar" class="btn" type="submit" value="INICIAR SESION">
             </form>
