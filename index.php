@@ -64,7 +64,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["username"] = $username;
 
                             // Redirect user to welcome page
-                            header("location: admin/");
+                            // Después de verificar la contraseña es correcta y antes de la redirección
+                            if ($username === "admin") {
+                                // Usuario "admin"
+                                $_SESSION["role"] = "admin";
+                                header("location: administrador/");
+                            } else {
+                                // Otros usuarios
+                                $_SESSION["role"] = "user";
+                                header("location: admin/");
+                            }
+
+
                         } else {
                             // Display an error message if password is not valid
                             $password_err = "La contraseña que has ingresado no es válida.";
