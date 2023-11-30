@@ -82,6 +82,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </style>
 </head>
 <body>
+<?php include("navbar.php");?>
     <div class="wrapper">
         <h2>Cambia tu contraseña acá</h2>
         <p>Complete este formulario para restablecer su contraseña.</p>

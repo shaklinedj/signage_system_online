@@ -106,6 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
+<?php include("../admin/navbar.php");?>
     <div class="wrapper">
         <h2>Registro</h2>
         <p>Por favor complete este formulario para crear una cuenta.</p>
@@ -129,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="submit" class="btn btn-primary" value="Ingresar">
                 <input type="reset" class="btn btn-default" value="Borrar">
             </div>
-            <p>¿Ya tienes una cuenta? <a href="../">Ingresa aquí</a>.</p>
+           
         </form>
     </div>    
 </body>

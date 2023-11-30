@@ -5,6 +5,7 @@
 include "db.php";
 
 
+
 $images = get_imgs();
 $videos = get_vids();
 ?>

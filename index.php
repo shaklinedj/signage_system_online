@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
+                            
 
                             // Redirect user to welcome page
                             // Después de verificar la contraseña es correcta y antes de la redirección
@@ -148,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="text-center">
                     <a class="font-italic isai5" href="">Olvidé mi contraseña</a>
-                    <a class="font-italic isai5" href="administrador/register.php">Registrarse</a>
+                   
                 </div>
                 <input name="btningresar" class="btn" type="submit" value="INICIAR SESION">
             </form>
