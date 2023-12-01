@@ -1,6 +1,7 @@
 <?php
 // Include config file
 require_once "../login-master/config.php";
+
  
 // Define variables and initialize with empty values
 $usuario = $password = $confirm_password = "";
@@ -78,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 // Redirect to login page
-                header("location: ../");
+                header("location: index.php");
             } else {
                 echo "Algo salió mal, por favor inténtalo de nuevo.";
             }

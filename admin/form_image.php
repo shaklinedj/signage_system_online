@@ -6,7 +6,7 @@
 	  <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
 	</head>
 	<body>
-<?php include("navbar.php");?>
+<?php include("navbar_2.php");?>
 
 		<div class="container">
 			<div class="row">

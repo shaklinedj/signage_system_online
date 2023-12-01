@@ -1,13 +1,6 @@
 <?php
 // Initialize the session
-session_start();
- 
-// Check if the user is logged in, otherwise redirect to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../");
-    exit;
-}
- 
+
 // Include config file
 require_once "../login-master/config.php";
  
@@ -54,7 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(mysqli_stmt_execute($stmt)){
                 // Password updated successfully. Destroy the session, and redirect to login page
                 session_destroy();
-                header("location: ../");
+                header("location: index.php");
                 exit();
             } else{
                 echo "Algo salió mal, por favor vuelva a intentarlo.";
@@ -82,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </style>
 </head>
 <body>
-<?php include("navbar.php");?>
+<?php include("../admin/navbar.php");?>
     <div class="wrapper">
         <h2>Cambia tu contraseña acá</h2>
         <p>Complete este formulario para restablecer su contraseña.</p>
@@ -99,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Enviar">
-                <a class="btn btn-link" href="../">Cancelar</a>
+                <a class="btn btn-link" href="index.php">Cancelar</a>
             </div>
         </form>
     </div>    

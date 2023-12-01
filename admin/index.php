@@ -18,7 +18,7 @@ $videos = get_vids();
   <link rel="shortcut icon" href="slotmachine.ico" />
 </head>
 <body>
-  <?php include("navbar.php");?>
+  <?php include("navbar_2.php");?>
   <div class="container">
     <div class="row">
       <div class="col-md-12">
