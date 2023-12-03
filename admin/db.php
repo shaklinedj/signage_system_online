@@ -101,6 +101,8 @@ function get_imgs_fecha($fecha) {
 	return $imagenes;
   }
   
-  
+
+
+
 
 ?>

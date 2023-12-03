@@ -18,4 +18,5 @@
         <div class="text-center">
                     <a class="font-italic isai5" href="">Olvidé mi contraseña</a>
                     <a class="font-italic isai5" href="register.php">Registrarse</a>
+                    <a class="font-italic isai5" href="reset-password.php">Reset password</a>
                 </div>

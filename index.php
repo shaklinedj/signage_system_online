@@ -124,6 +124,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <img src="login-master/img/avatar.svg">
                 <h2 class="title">BIENVENIDO</h2>
+                
+               
+
+
+
+
 
                 <div class="input-div one">
                     <div class="i">
@@ -149,6 +155,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="text-center">
                     <a class="font-italic isai5" href="">Olvidé mi contraseña</a>
+                    <?php
+    // Mostrar el mensaje de error si existe
+    if (!empty($password_err)) {
+        echo '<div class="error-message">' . $password_err . '</div>';
+    }
+    ?>
                    
                 </div>
                 <input name="btningresar" class="btn" type="submit" value="INICIAR SESION">

@@ -20,7 +20,7 @@ include("../administrador/sesion.php");
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a>  Hola, <?php echo htmlspecialchars($_SESSION["username"]); ?> - bienvenido al sistema de publicidad Dreams</a></li>
+        <li><a>  Hola, <?php echo htmlspecialchars($_SESSION["username"]); ?> - bienvenido al sistema de publicidad Dreams </a></li>
         <li><a href="./">Inicio</a></li>
         <li><a href="../carrusel" target="_blank">Ver carousel</a></li>
         <li><a href="../login-master/logout.php">Salir</a></li>
