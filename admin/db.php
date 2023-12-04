@@ -4,27 +4,88 @@
 * Conexion a la base de datos y funciones
 * Autor: evilnapsis
 **/
+// Initialize the session
+//obtener casino de usuario logueado
+$casino_id= isset($_SESSION["casino_id"])?$_SESSION["casino_id"]:NULL;
+
 
 function con(){
 	return new mysqli("localhost","root","","carousel");
 }
 
-function insert_img($title, $folder, $image, $fecha ){
-	$con = con(); 
-	$con->query("insert into image (title, folder,src,created_at,fecha) value (\"$title\",\"$folder\",\"$image\",NOW(),\"$fecha\")");
+function insert_img($casino_id, $folder, $image, $fecha) {
+    $con = con();
+
+    // Validar y escapar los datos
+    $casino_id = htmlspecialchars($casino_id);
+    $folder = htmlspecialchars($folder);
+    $image = htmlspecialchars($image);
+    $fecha = htmlspecialchars($fecha);
+
+    // Utilizar consulta preparada para evitar la inyección de SQL
+    $stmt = $con->prepare("INSERT INTO image (casino_id, folder, src, created_at, fecha) VALUES (?, ?, ?, NOW(), ?)");
+
+    // Verificar si la consulta preparada se realizó con éxito
+    if ($stmt) {
+        // Vincular parámetros y ejecutar la consulta
+        $stmt->bind_param("isss", $casino_id, $folder, $image, $fecha);
+
+        // Verificar si la ejecución de la consulta fue exitosa
+        if ($stmt->execute()) {
+            // Éxito al ejecutar la consulta
+            $stmt->close();
+        } else {
+            // Manejar errores
+            echo "Error al ejecutar la consulta: " . $stmt->error;
+            $stmt->close();
+        }
+    } else {
+        // Manejar errores si la consulta preparada falla
+        echo "Error en la preparación de la consulta: " . $con->error;
+    }
 }
 
 
 
-function get_imgs(){
+function get_imgs_back(){
 	$images = array();
 	$con = con();
+    
 	$query=$con->query("select * from image order by created_at desc");
 	while($r=$query->fetch_object()){
 		$images[] = $r;
 	}
 	return $images;
 }
+
+function get_imgs($casino_id) {
+    $images = array();
+    $con = con();
+    $casino_id = htmlspecialchars($casino_id);
+
+    // Utiliza la consulta preparada para evitar la inyección de SQL
+    $stmt = $con->prepare("SELECT * FROM image WHERE casino_id = ? ORDER BY created_at DESC");
+
+    // Verifica si la consulta preparada se realizó con éxito
+    if ($stmt) {
+        // Vincula parámetros y ejecuta la consulta
+        $stmt->bind_param("i", $casino_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        while ($r = $result->fetch_object()) {
+            $images[] = $r;
+        }
+
+        $stmt->close();
+    } else {
+        // Maneja errores si la consulta preparada falla
+        echo "Error en la preparación de la consulta: " . $con->error;
+    }
+
+    return $images;
+}
+
 
 function get_img($id){
 	$image = null;
@@ -43,13 +104,42 @@ function del($id){
 
 
 //funcion inserta  video
-function insert_vid($title, $folder, $video ,$fecha){
-	$con = con();
-	$con->query("insert into video (title, folder,src,created_at,fecha) value (\"$title\",\"$folder\",\"$video\",NOW(),\"$fecha\")");
+function insert_vid($casino_id, $folder, $video, $fecha) {
+    $con = con();
+
+    // Validar y escapar los datos
+    $casino_id = htmlspecialchars($casino_id);
+    $folder = htmlspecialchars($folder);
+    $video = htmlspecialchars($video);
+    $fecha = htmlspecialchars($fecha);
+
+    // Utilizar consulta preparada para evitar la inyección de SQL
+    $stmt = $con->prepare("INSERT INTO video (casino_id, folder, src, created_at, fecha) VALUES (?, ?, ?, NOW(), ?)");
+
+    // Verificar si la consulta preparada se realizó con éxito
+    if ($stmt) {
+        // Vincular parámetros y ejecutar la consulta
+        $stmt->bind_param("isss", $casino_id, $folder, $video, $fecha);
+
+        // Verificar si la ejecución de la consulta fue exitosa
+        if ($stmt->execute()) {
+            // Éxito al ejecutar la consulta
+            $stmt->close();
+        } else {
+            // Manejar errores
+            echo "Error al ejecutar la consulta: " . $stmt->error;
+            $stmt->close();
+        }
+    } else {
+        // Manejar errores si la consulta preparada falla
+        echo "Error en la preparación de la consulta: " . $con->error;
+    }
 }
 
+
+
 //funcion get video
-function get_vids(){
+function get_vids_back(){
 	$videos = array();
 	$con = con();
 	$query=$con->query("select * from video order by created_at desc");
@@ -58,6 +148,35 @@ function get_vids(){
 	}
 	return $videos;
 }
+
+function get_vids($casino_id) {
+    $videos = array();
+    $con = con();
+    $casino_id = htmlspecialchars($casino_id);
+
+    // Utiliza la consulta preparada para evitar la inyección de SQL
+    $stmt = $con->prepare("SELECT * FROM video WHERE casino_id = ? ORDER BY created_at DESC");
+
+    // Verifica si la consulta preparada se realizó con éxito
+    if ($stmt) {
+        // Vincula parámetros y ejecuta la consulta
+        $stmt->bind_param("i", $casino_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        while ($r = $result->fetch_object()) {
+            $videos[] = $r;
+        }
+
+        $stmt->close();
+    } else {
+        // Maneja errores si la consulta preparada falla
+        echo "Error en la preparación de la consulta: " . $con->error;
+    }
+
+    return $videos;
+}
+
 //funcion get video by id
 function get_vid($id){
 	$video = null;

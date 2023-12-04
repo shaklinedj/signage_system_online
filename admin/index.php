@@ -1,13 +1,12 @@
 <?php
 
-
-
+include("navbar_2.php");
 include "db.php";
 
+$casino_id = $_SESSION["casino_id"];
 
-
-$images = get_imgs();
-$videos = get_vids();
+$images = get_imgs($casino_id);
+$videos = get_vids($casino_id);
 ?>
 
 <html>
@@ -18,7 +17,7 @@ $videos = get_vids();
   <link rel="shortcut icon" href="slotmachine.ico" />
 </head>
 <body>
-  <?php include("navbar_2.php");?>
+  
   <div class="container">
     <div class="row">
       <div class="col-md-12">

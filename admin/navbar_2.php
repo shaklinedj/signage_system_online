@@ -1,6 +1,5 @@
 <?php
 
-// Initialize the session
 session_start();
 
 // Check if the user is logged in, if not then redirect him to login page
@@ -68,7 +67,7 @@ function getCasinoName($link, $casino_id)
                     <?php
                     $casino_id = $_SESSION["casino_id"];
                     $casino_name = getCasinoName($link, $casino_id);
-                    echo "<a>Hola, " . htmlspecialchars($_SESSION["username"]) . " - bienvenido al sistema de publicidad Dreams en el casino " . $casino_name . "</a>";
+                    echo "<a>Hola, " . htmlspecialchars($_SESSION["username"]) . " - bienvenido al sistema de publicidad Dreams  " . $casino_name . "</a>";
                     ?>
                 </li>
                 <li><a href="./">Inicio</a></li>

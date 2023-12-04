@@ -1,8 +1,8 @@
   
   <?php
 include "../admin/db.php";
- $images = get_imgs();
- $videos = get_vids();
+ $images = get_imgs_back();
+ $videos = get_vids_back();
 ?>
 <!-- Powered by Evilnapsis http://evilnapsis.com/ -->
 <!DOCTYPE html>
