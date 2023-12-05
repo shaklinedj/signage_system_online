@@ -4,7 +4,7 @@
 
 <html>
 <head>
-  <title>publicidad Dreams Coyhaique</title>
+  <title>publicidad Dreams</title>
   <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../admin/styles.css"> <!-- Asegúrate de tener un archivo de estilos CSS -->
   <link rel="shortcut icon" href="slotmachine.ico" />
@@ -16,8 +16,9 @@
         
 
         <div class="text-center">
-                    <a class="font-italic isai5" href="">Olvidé mi contraseña</a>
+                    
                     <a class="font-italic isai5" href="register.php">Registrarse</a>
                     <a class="font-italic isai5" href="reset-password.php">Reset password</a>
+                    <a class="font-italic isai5" href="crea_edita_casino.php">administrar casinos</a>
                     
                 </div>
