@@ -19,6 +19,6 @@
                     
                     <a class="font-italic isai5" href="register.php">Registrarse</a>
                     <a class="font-italic isai5" href="reset-password.php">Reset password</a>
-                    <a class="font-italic isai5" href="crea_edita_casino.php">administrar casinos</a>
+                    
                     
                 </div>
