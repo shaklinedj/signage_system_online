@@ -1,6 +1,7 @@
   
   <?php
 include "../admin/db.php";
+ $casinos = get_casinos(); 
  $images = get_imgs_back();
  $videos = get_vids_back();
 ?>
@@ -73,11 +74,7 @@ include "../admin/db.php";
 
 </head>
 <body>
-<!-- Aquí está el código HTML sin la barra de navegación -->
 
-<!--<div class="container"> -->
-  <!--<div class="row"> -->
-    <!--<div class="col-md-12">-->
       <?php if(count($images)>0 || count($videos)>0):?>
       <!-- aquí insertaremos el slider -->
       <div id="carousel1" class="carousel slide" data-ride="carousel">
@@ -97,7 +94,7 @@ include "../admin/db.php";
           <?php $cnt = 0; foreach($images as $img): ?>
           <div class="item <?php if($cnt == 0) {echo 'active';} ?>">
             <img src="<?php echo '../admin/'.$img->folder.$img->src; ?>" alt="Imagen">
-            <div class="carousel-caption"><?php echo $img->title; ?></div>
+         
           </div>
           <?php $cnt++; endforeach; ?>
           <?php foreach($videos as $vid): ?>
@@ -113,7 +110,7 @@ include "../admin/db.php";
                >
               <source src="<?php echo '../admin/'.$vid->folder.$vid->src; ?>" type="video/mp4">
             </>
-            <div class="carousel-caption"><?php echo $vid->title; ?></div>
+  
           </div>
           <?php endforeach; ?>
         </div>
@@ -128,6 +125,30 @@ include "../admin/db.php";
   </div>
 </div>
 
+<!-- Modal para elegir casino -->
+<div class="modal fade" id="casinoModal" tabindex="-1" role="dialog" aria-labelledby="casinoModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="casinoModalLabel">Selecciona un casino</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Elige tu casino favorito:</p>
+        <select id="casinoSelect" class="form-control">
+          <?php foreach ($casinos as $casino): ?>
+            <option value="<?php echo $casino; ?>"><?php echo $casino; ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="guardarCasino()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--Agregar el siguiente script en la parte inferior de la página-->
 <script>
@@ -154,6 +175,43 @@ include "../admin/db.php";
       }
     });
   });
+
+  
+  $(document).ready(function () {
+    // Muestra el modal al cargar la página si no hay casino guardado
+    if (!localStorage.getItem('casino_id')) {
+      $('#casinoModal').modal('show');
+    }
+  });
+
+  function guardarCasino() {
+  var selectedCasino = $('#casinoSelect').val();
+  var selectedCasinoId = $('#casinoSelect option:selected').val();
+
+  // Almacena el casino_id en el localStorage
+  localStorage.setItem('casino_id', selectedCasinoId);
+
+  // Cierra el modal
+  $('#casinoModal').modal('hide');
+
+  // Realiza una petición AJAX al servidor para guardar el valor
+  $.ajax({
+    url: 'procesar_casino.php', // Reemplaza con la ruta correcta a tu script PHP
+    type: 'POST',
+    data: { id: selectedCasinoId },
+    success: function(response) {
+      console.log('Valor del casino_id enviado al servidor');
+    },
+    error: function(error) {
+      console.error('Error al enviar el valor del casino_id al servidor: ', error);
+    }
+  });
+
+  // Recarga la página para aplicar el filtro del casino seleccionado
+  location.reload();
+}
+
+
 
 
 

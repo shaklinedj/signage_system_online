@@ -11,7 +11,7 @@ $casino_name_err = $action_err = $new_casino_name_err = "";
 // Check if the user is an administrator
 if ($_SESSION["role"] !== "admin") {
     // Redirect to a suitable page or display an error message
-    header("location: unauthorized.php");
+    header("location: index.php");
     exit();
 }
 
