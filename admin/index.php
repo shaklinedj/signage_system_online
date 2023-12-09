@@ -8,7 +8,7 @@ $casino_id = $_SESSION["casino_id"];
 $images = get_imgs($casino_id);
 $videos = get_vids($casino_id);
 ?>
-
+<!DOCTYPE html>
 <html>
 <head>
   <title>publicidad Dreams Coyhaique</title>

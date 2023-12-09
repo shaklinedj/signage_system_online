@@ -83,15 +83,19 @@ function get_imgs_back() {
     $images = array();
     $con = con();
 
-    $images = array();
-	$con = con();
-	$query=$con->query("select * from image order by created_at desc");
-	while($r=$query->fetch_object()){
-		$images[] = $r;
-	}
-	return $images;
+    $query = $con->prepare("SELECT * FROM image ORDER BY created_at DESC");
+    $query->execute();
 
-    
+    $result = $query->get_result();
+
+    while ($r = $result->fetch_object()) {
+        $images[] = $r;
+    }
+
+    $query->close();
+    $con->close();
+
+    return $images;
 }
 
 

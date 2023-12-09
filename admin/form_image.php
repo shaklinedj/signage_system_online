@@ -1,10 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
 
-
-<html>
-	<head>
+	
 		<title>Subir Multiples Imagenes y/o Archivos - By Evilnapsis</title>
 	  <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
-	</head>
+</head>
 	<body>
 <?php include("navbar_2.php");?>
 
@@ -15,13 +20,13 @@
 		<form enctype="multipart/form-data" method="post" action="upload.php">
 
   <div class="form-group">
-    <label for="exampleInputPassword1">Fecha Termino</label>
+    <label for="fecha">Fecha Termino</label>
    <!-- <input type="text"  name="title" class="form-control"  placeholder="Texto a mostrar">-->
-	<input type="date" name="fecha" class="form-group" >
+	<input type="date"  id="fecha"name="fecha" class="form-group" >
   </div>
   <div class="form-group">
-    <label for="exampleInputFile">Imagen</label>
-    <input type="file" name="image" required>
+    <label for="image">Imagen</label>
+    <input type="file" id="image" name="image" required>
   </div>
 
 		<input type="submit" value="Subir imagen" class="btn btn-primary">
@@ -31,4 +36,4 @@
 </div>
 	</body>
 
-</html>
+</DOC>
