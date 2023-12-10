@@ -129,9 +129,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                
 
 
-
-
-
                 <div class="input-div one">
                     <div class="i">
                         <i class="fas fa-user"></i>

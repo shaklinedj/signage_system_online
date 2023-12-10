@@ -103,11 +103,21 @@ function get_imgs_back() {
 function get_vids_back(){
 	$videos = array();
 	$con = con();
-	$query=$con->query("select * from video order by created_at desc");
-	while($r=$query->fetch_object()){
+
+	$query = $con->prepare("SELECT * FROM video ORDER BY created_at DESC");
+	$query->execute();
+
+    $result = $query->get_result();
+    
+    while($r=$result->fetch_object()){
 		$videos[] = $r;
 	}
-	return $videos;
+	
+
+    $query->close();
+    $con->close();
+
+    return $videos;
 }
 function get_imgs($casino_id) {
     $images = array();
