@@ -173,32 +173,93 @@ function get_vids($casino_id) {
 }
 function get_img($id){
 	$image = null;
-	$con = con();
-	$query=$con->query("select * from image where id=$id");
-	while($r=$query->fetch_object()){
-		$image = $r;
-	}
-	return $image;
+    $con = con();
+    
+    // Utilizar consulta preparada para evitar inyección de SQL
+    $stmt = $con->prepare("SELECT * FROM image WHERE id = ?");
+    
+    // Verificar si la consulta preparada se realizó con éxito
+    if ($stmt) {
+        // Vincular parámetros y ejecutar la consulta
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        while ($r = $result->fetch_object()) {
+            $image = $r;
+        }
+        
+        $stmt->close();
+    } else {
+        // Manejar errores de manera segura
+        error_log("Error en la preparación de la consulta: " . $con->error);
+}
+ // Cerrar conexión después de su uso
+ mysqli_close($con);
+
+ return $image;
 }
 function del($id){
-	$con = con();
-	$con->query("delete from image where id=$id");
+    $con = con();
+
+    // Utilizar consulta preparada para evitar inyección de SQL
+    $stmt = $con->prepare("DELETE FROM image WHERE id = ?");
+
+    // Verificar si la consulta preparada se realizó con éxito
+    if ($stmt) {
+        // Vincular parámetros y ejecutar la consulta
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+    } else {
+        // Manejar errores de manera segura
+        error_log("Error en la preparación de la consulta: " . $con->error);
+    }
+
+    // Cerrar conexión después de su uso
+    mysqli_close($con);
 }
 
 //funcion get video by id
 function get_vid($id){
-	$video = null;
-	$con = con();
-	$query=$con->query("select * from video where id=$id");
-	while($r=$query->fetch_object()){
-		$video = $r;
-	}
-	return $video;
+    $video = null;
+    $con = con();
+
+    $stmt = $con->prepare("SELECT * FROM video WHERE id = ?");
+
+    if ($stmt) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        while ($r = $result->fetch_object()) {
+            $video = $r;
+        }
+
+        $stmt->close();
+    } else {
+        error_log("Error en la preparación de la consulta: " . $con->error);
+    }
+
+    mysqli_close($con);
+
+    return $video;
 }
 //funcion delete video
 function delvid($id){
-	$con = con();
-	$con->query("delete from video where id=$id");
+    $con = con();
+
+    $stmt = $con->prepare("DELETE FROM video WHERE id = ?");
+
+    if ($stmt) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+    } else {
+        error_log("Error en la preparación de la consulta: " . $con->error);
+    }
+
+    mysqli_close($con);
 }
 
 
@@ -209,15 +270,41 @@ function delvid($id){
 function get_user($id){
     $user = null;
     $con = con();
-    $query=$con->query("select * from users where id=$id");
-    while($r=$query->fetch_object()){
-        $user = $r;
+
+    $stmt = $con->prepare("SELECT * FROM users WHERE id = ?");
+
+    if ($stmt) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        while ($r = $result->fetch_object()) {
+            $user = $r;
+        }
+
+        $stmt->close();
+    } else {
+        error_log("Error en la preparación de la consulta: " . $con->error);
     }
+
+    mysqli_close($con);
+
     return $user;
 }
 function deluser($id){
     $con = con();
-    $con->query("delete from users where id=$id");
+
+    $stmt = $con->prepare("DELETE FROM users WHERE id = ?");
+
+    if ($stmt) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+    } else {
+        error_log("Error en la preparación de la consulta: " . $con->error);
+    }
+
+    mysqli_close($con);
     
 }
 function get_imgs_fecha($fecha) {
