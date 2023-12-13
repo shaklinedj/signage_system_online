@@ -5,6 +5,7 @@
 
 // Include config file
 require_once "../login-master/config.php";
+include "../admin/db.php";
 
 // Define variables and initialize with empty values
 $new_password = $confirm_password = "";
@@ -85,6 +86,8 @@ function get_user_list($link)
     }
     return $user_list;
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -125,11 +128,41 @@ function get_user_list($link)
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Enviar">
-                <a class="btn btn-link" href="index.php">Cancelar</a>
-            </div>
+    <input type="submit" class="btn btn-primary" value="Enviar">
+    <a class="btn btn-link" href="index.php">Cancelar</a>
+    <button type="button" class="btn btn-danger" id="deleteUserBtn">Eliminar</button>
+</div>
+
         </form>
     </div>    
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteUserBtn = document.getElementById('deleteUserBtn');
+    const userIdInput = document.querySelector('select[name="user_id"]');
+
+    deleteUserBtn.addEventListener('click', function() {
+        const userId = userIdInput.value;
+
+        if (userId !== "") {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción eliminará al usuario permanentemente.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminarlo'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `../admin/delete.php?id=${userId}`;
+                }
+            });
+        } else {
+            Swal.fire('Error', 'Selecciona un usuario antes de intentar eliminarlo.', 'error');
+        }
+    });
+});
+</script>

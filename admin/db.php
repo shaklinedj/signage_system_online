@@ -97,8 +97,6 @@ function get_imgs_back() {
 
     return $images;
 }
-
-
 //funcion get video
 function get_vids_back(){
 	$videos = array();
@@ -146,24 +144,6 @@ function get_imgs($casino_id) {
 
     return $images;
 }
-
-
-function get_img($id){
-	$image = null;
-	$con = con();
-	$query=$con->query("select * from image where id=$id");
-	while($r=$query->fetch_object()){
-		$image = $r;
-	}
-	return $image;
-}
-
-function del($id){
-	$con = con();
-	$con->query("delete from image where id=$id");
-}
-
-
 function get_vids($casino_id) {
     $videos = array();
     $con = con();
@@ -191,6 +171,19 @@ function get_vids($casino_id) {
 
     return $videos;
 }
+function get_img($id){
+	$image = null;
+	$con = con();
+	$query=$con->query("select * from image where id=$id");
+	while($r=$query->fetch_object()){
+		$image = $r;
+	}
+	return $image;
+}
+function del($id){
+	$con = con();
+	$con->query("delete from image where id=$id");
+}
 
 //funcion get video by id
 function get_vid($id){
@@ -209,6 +202,24 @@ function delvid($id){
 }
 
 
+
+
+
+
+function get_user($id){
+    $user = null;
+    $con = con();
+    $query=$con->query("select * from users where id=$id");
+    while($r=$query->fetch_object()){
+        $user = $r;
+    }
+    return $user;
+}
+function deluser($id){
+    $con = con();
+    $con->query("delete from users where id=$id");
+    
+}
 function get_imgs_fecha($fecha) {
 	$mysqli = new mysqli("localhost", "root", "", "carousel");
   
@@ -234,7 +245,6 @@ function get_imgs_fecha($fecha) {
   
 	return $imagenes;
   }
-  
   function get_casinos()
   {
       $casinos = array();
@@ -250,8 +260,6 @@ function get_imgs_fecha($fecha) {
   
       return $casinos;
   }
-  
-
   function get_casino_name($casino_id)
 {
   $con = con();

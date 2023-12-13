@@ -158,6 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Ingresar">
                 <input type="reset" class="btn btn-default" value="Borrar">
+              
             </div>
 
         </form>
