@@ -47,7 +47,8 @@ function getCasinoName($link, $casino_id)
 }
 
 ?>
-
+<!DOCTYPE html>
+<link rel="shortcut icon" href="../slotmachine.ico" />
 <nav class="navbar navbar-inverse">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->

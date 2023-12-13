@@ -5,7 +5,7 @@
   <title>publicidad Dreams</title>
   <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../admin/styles.css">
-  <link rel="shortcut icon" href="slotmachine.ico" />
+  
 </head>
 <body>
   <?php include("../admin/navbar.php");
