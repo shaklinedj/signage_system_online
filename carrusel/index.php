@@ -18,37 +18,27 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
 <html>
 
 <style>
-   h1 {
-     color: red;
-     font-weight: bold;
-     font-size: 44px;
-     padding: 20px;
-   }
-
-   p {
-     color: orange;
-     font-weight: bold;
-     font-size: 42px;
-     padding: 20px;
-   }
+  
 
    .carousel-inner {
      position: fixed !important;
    }
 
-   .carousel-inner img,
-   .carousel-inner video {
-     width: 100%;
-     height: 100%;
-     object-fit: cover;
-   }
+  
 
-   video {
-     width: 100%;
-     height: 100%;
-     padding: 0;
-     margin: 0;
-   }
+
+
+   #carousel1 .carousel-inner img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+#carousel1 .carousel-inner video {
+    width: 100%;
+    height: auto;
+}
+
 </style>
 
 <head>
@@ -125,7 +115,7 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
     </div>
   </div>
 
-  <!-- Agregar el siguiente script en la parte inferior de la página -->
+  
 
   <script>
     $(document).ready(function () {
@@ -158,7 +148,7 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
     }
     });
 
-    // Función para guardar el casino seleccionado en cookies
+   
     function guardarCasino() {
       var selectedCasinoId = document.getElementById("casinoSelect").value;
     Cookies.set("casino_id", selectedCasinoId, { expires: 365 }); // Guarda el id del casino en la cookie por 7 días
