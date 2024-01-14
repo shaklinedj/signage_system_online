@@ -18,32 +18,33 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
 <html>
 
 <style>
-  
-
-   .carousel-inner {
-     position: fixed !important;
-   }
-
-  
-
-
-
-   #carousel1 .carousel-inner img {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
-#carousel1 .carousel-inner video {
+   .carousel-inner{
+    position: fixed !important;
+  }
+   
+  .carousel-inner img,
+  .carousel-inner video {
+    
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  video {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
+
+
 
 </style>
 
 <head>
   <title>Carouseles</title>
   <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+
   <link rel="shortcut icon" href="../admin/slotmachine.ico" />
   <!-- Incluimos jQuery y Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
