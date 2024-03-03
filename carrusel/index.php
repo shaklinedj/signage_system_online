@@ -24,10 +24,10 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
    
   .carousel-inner img,
   .carousel-inner video {
-    
+   object-position: center top;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 100vh !important;
+    object-fit: fill;
   }
 
   video {
