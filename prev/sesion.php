@@ -3,8 +3,9 @@
 session_start();
 
 // Check if the user is an admin, if not, redirect to the login page
-if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "admin") {
-    header("location: ../");
+if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "prev") {
+    header("location: ../admin");
    
     exit;
 }
+

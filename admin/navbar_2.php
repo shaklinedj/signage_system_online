@@ -8,6 +8,22 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
+// Si el usuario no es de tipo "user", redirigirlo según su rol
+if ($_SESSION["role"] !== "user") {
+    if ($_SESSION["role"] === "admin") {
+        // Si es admin, redirigir al panel de administrador
+        header("location: ../administrador");
+        exit;
+    } elseif ($_SESSION["role"] === "prev") {
+        // Si es prev, redirigir al panel de prev
+        header("location: ../prev");
+        exit;
+    } else {
+        // Si el rol no es reconocido, redirigir al inicio de sesión
+        header("location: ../");
+        exit;
+    }
+}
 // Include config file
 require_once "../login-master/config.php";
 

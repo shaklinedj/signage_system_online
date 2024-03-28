@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate credentials
     if (empty($usuario_err) && empty($password_err)) {
         // Prepare a select statement
-        $sql = "SELECT id, username, password, casino_id FROM users WHERE username = ?";
+        $sql = "SELECT id, username, password, casino_id, role FROM users WHERE username = ?";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Check if username exists, if yes then verify password
                 if (mysqli_stmt_num_rows($stmt) == 1) {
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password,$casino_id);
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password,$casino_id,$role);
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
                             // Password is correct, so start a new session
@@ -63,19 +63,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
                             $_SESSION["casino_id"]= $casino_id;
+                            $_SESSION["role"]= $role;
+
                             
 
-                            // Redirect user to welcome page
-                            // Después de verificar la contraseña es correcta y antes de la redirección
-                            if ($username === "admin") {
-                                // Usuario "admin"
-                                $_SESSION["role"] = "admin";
-                                header("location: administrador/");
-                            } else {
-                                // Otros usuarios
-                                $_SESSION["role"] = "user";
-                                header("location: admin/");
-                            }
+                           
+// Redirigir según el rol del usuario
+if ($_SESSION["role"] === "admin") {
+    // Si es admin, redirigir al panel de administrador
+    header("location: ./administrador");
+    exit;
+} elseif ($_SESSION["role"] === "user") {
+    // Si es user, redirigir al panel de usuario
+    header("location: ./admin");
+    exit;
+} elseif ($_SESSION["role"] === "prev") {
+    // Si es prev, redirigir al panel de prev
+    header("location: ./prev");
+    exit;
+}
 
 
                         } else {

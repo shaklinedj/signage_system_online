@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contador de días sin accidentes</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .relogio-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .relogio {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 200px;
+            width: 550px;
+            background: transparent;
+            border-radius: 3px;
+            box-shadow: 0px 8px 10px rgba(0, 0, 0, .5);
+        }
+
+        .relogio div {
+            height: 170px;
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            background: rgba(5, 5, 5, .9);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, .7);
+            border-radius: 7px;
+            letter-spacing: 3px;
+        }
+
+        .relogio span {
+            font-weight: bolder;
+            font-size: 60px;
+        }
+
+        .relogio span.tempo {
+            font-size: 10px;
+        }
+
+        .dreams-text {
+            font-size: 22px;
+            color: rgb(239, 235, 235);
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: rgb(215, 56, 232);
+            border-radius: 5px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .uv-index-box {
+            font-size: 20px;
+            color: #000;
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #000;
+            background-color: rgb(203, 232, 232);
+            border-radius: 5px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, .7);
+            border-radius: 7px;
+            letter-spacing: 3px;
+        }
+
+        .uv-message-box {
+            font-size: 20px;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: rgb(41, 77, 221);
+            border-radius: 5px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1>En Dreams Coyhaique llevamos esta cantidad de días sin accidentes:</h1>
+    <div id="counter" class="relogio-container">
+        <div class="relogio">
+            <div>
+                <span id="days" class="relogio-days">0</span>
+                <span class="relogio-label">Días</span>
+            </div>
+            <div>
+                <span id="hours" class="relogio-hours">0</span>
+                <span class="relogio-label">Horas</span>
+                </div>
+                <div>
+                <span id="hours" class="relogio-hours">0</span>
+                <span class="relogio-label">minutos </span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function updateCounter() {
+            // Aquí puedes hacer una solicitud AJAX a tu servidor PHP para obtener los datos del contador
+            // Luego, actualiza el contador en la página
+            // Ejemplo:
+            // fetch('obtener_contador.php')
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         document.getElementById('days').textContent = data.days;
+            //         document.getElementById('hours').textContent = data.hours;
+            //     });
+        }
+        
+        // Actualiza el contador cada segundo
+        setInterval(updateCounter, 1000);
+        
+        // Llama a updateCounter una vez para mostrar el valor inicial
+        updateCounter();
+    </script>
+</body>
+</html>
+
+
+
+
+
