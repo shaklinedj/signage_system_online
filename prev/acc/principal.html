@@ -14,7 +14,7 @@
         
     <iframe src="https://solmaforo2.vercel.app/" width="100%" height="800px" frameborder="0"></iframe>
 
-    <h2>En Dreams Coyhaique llevamos Sin Accidentes</h2>
+    <h2>En Dreams Coyhaique llevamos </h2>
 
     <div class="relogio">
 
@@ -39,13 +39,13 @@
         </div>
     </div>
 
-    <h2>El Ultimo fue el Dia: <span id="ultima-fecha"></span> </h2>
+    <h2>Sin accidentes. Siendo el último el: <span id="ultima-fecha"></span> </h2>
 
 
     <script>
 
 
-        const url2 = "http://localhost/relogiodigital-main/solmaforo/index.html";
+      
         async function getUltimaFecha() {
             // Realiza una solicitud AJAX para obtener la última fecha de accidente
             var xhr = new XMLHttpRequest();
@@ -98,19 +98,15 @@
 
         getUltimaFecha();
 
-        /*     // Recargar la página cada 30 minutos (en milisegundos)
-     setInterval(function() {
-         location.reload();
-     },30 * 60 * 1000);
-      
-        setInterval(function () {
-            window.location.replace(url2);
+        var reloading = false;
 
-        }, 300000);
-*/
-
-
-
+// Recargar la página cada 2 minutos (en milisegundos)
+setInterval(function() {
+    if (!reloading) {
+        reloading = true;
+        location.reload();
+    }
+}, 2 * 60 * 1000);
     </script>
 </body>
 
