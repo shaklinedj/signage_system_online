@@ -9,7 +9,7 @@
 body {
     height: 100vh;
   /* background: linear-gradient(120deg, #b73bffd8, #ff2525da */
-     background-image: url("dreamsCoyhaique3.jpg");
+     background-image: url("screenshot_2.png");
      background-size: contain;
     display: flex;
     align-items: center;
@@ -64,7 +64,7 @@ body {
 
 /* Estilos para el texto "Dreams te cuida" */
 h2 {
-    font-size: 15px; /* Tamaño de fuente */
+    font-size: 25px; /* Tamaño de fuente */
     color: rgb(239, 235, 235); /* Color de texto */
     text-align: center;
     margin-top: 10px;
