@@ -13,46 +13,72 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
 });
 ?>
 
-<!-- Powered by Evilnapsis http://evilnapsis.com/ -->
 <!DOCTYPE html>
 <html>
-
-<style>
-   .carousel-inner{
-    position: fixed !important;
-  }
-   
-  .carousel-inner img,
-  .carousel-inner video {
-   object-position: center top;
-    width: 100%;
-    height: 100vh !important;
-    object-fit: fill;
-  }
-
-  video {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-
-
-</style>
-
 <head>
   <title>Carouseles</title>
   <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
-
   <link rel="shortcut icon" href="../admin/slotmachine.ico" />
-  <!-- Incluimos jQuery y Bootstrap -->
+  <style>
+    .carousel-inner {
+      position: fixed !important;
+    }
+    .carousel-inner img,
+    .carousel-inner video {
+      object-position: center top;
+      width: 100%;
+      height: 100vh !important;
+      object-fit: fill;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-  
   <script>
-    // Función para recargar la página con delay
+    $(document).ready(function () {
+      var videos = $('video');
+
+      videos.on('play', function () {
+        $('#carousel1').carousel('pause');
+      });
+
+      videos.on('ended', function () {
+        $('#carousel1').carousel('cycle');
+      });
+
+      $('#carousel1').on('slid.bs.carousel', function () {
+        var $activeItem = $('.carousel-inner .item.active');
+        var $video = $activeItem.find('video');
+
+        if ($video.length > 0) {
+          $('#carousel1').carousel('pause');
+          $video[0].play();
+        } else {
+          setTimeout(function () {
+            $('#carousel1').carousel('next');
+          }, 8000); // Tiempo en milisegundos para las imágenes (5 segundos)
+        }
+      });
+
+      var selectedCasino = Cookies.get("casino_id");
+      if (selectedCasino === undefined) {
+        $('#casinoModal').modal('show');
+      }
+    });
+
+    function guardarCasino() {
+      var selectedCasinoId = document.getElementById("casinoSelect").value;
+      Cookies.set("casino_id", selectedCasinoId, { expires: 365 });
+      $('#casinoModal').modal('hide');
+      location.reload();
+    }
+
     function reloadWithDelay(delay) {
       setTimeout(() => {
         location.reload();
@@ -60,13 +86,9 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
     }
   </script>
 </head>
-
 <body>
-
-  <?php if(count($filteredImages) > 0 || count($videos) > 0): ?>
-  <!-- aquí insertaremos el slider -->
+  <?php if(count($filteredImages) > 0 || count($filteredVideos) > 0): ?>
   <div id="carousel1" class="carousel slide" data-ride="carousel">
-    <!-- Indicadores -->
     <div class="carousel-inner" role="listbox">
       <?php $cnt = 0; foreach($filteredImages as $img): ?>
       <div class="item <?php if($cnt == 0) {echo 'active';} ?>">
@@ -75,20 +97,17 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
       <?php $cnt++; endforeach; ?>
       <?php foreach($filteredVideos as $vid): ?>
       <div class="item">
-        <video class="full-width-video" id="video<?php echo $cnt; ?>" autoplay muted>
+        <video class="full-width-video" id="video<?php echo $cnt; ?>" muted>
           <source src="<?php echo '../admin/'.$vid->folder.$vid->src; ?>" type="video/mp4">
-        </>
+        </video>
       </div>
-      <?php endforeach; ?>
+      <?php $cnt++; endforeach; ?>
     </div>
   </div>
   <?php else: ?>
   <h4 class="alert alert-warning">No hay imágenes</h4>
   <?php endif; ?>
-  </div>
-  </div>
 
-  <!-- Modal para elegir casino -->
   <div class="modal fade" id="casinoModal" tabindex="-1" role="dialog" aria-labelledby="casinoModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -102,11 +121,11 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
           <p>Elige tu casino favorito:</p>
           <select id="casinoSelect" class="form-control">
           <?php
-                $casinos = get_casinos();
-                foreach ($casinos as $id => $casino) {
-                  echo "<option value='$id'>$casino</option>";
-                }
-              ?>
+            $casinos = get_casinos();
+            foreach ($casinos as $id => $casino) {
+              echo "<option value='$id'>$casino</option>";
+            }
+          ?>
           </select>
         </div>
         <div class="modal-footer">
@@ -115,49 +134,5 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
       </div>
     </div>
   </div>
-
-  
-
-  <script>
-    $(document).ready(function () {
-      var videos = document.getElementsByTagName("video");
-
-      for (var i = 0; i < videos.length; i++) {
-        videos[i].addEventListener('play', function () {
-          $('#carousel1').carousel('pause');
-        });
-
-        videos[i].addEventListener('ended', function () {
-          $('#carousel1').carousel('next');
-        });
-      }
-
-      // Recarga la página si el slide se detiene
-      $('#carousel1').on('slid.bs.carousel', function () {
-        var currentSlide = $('.carousel-inner .item.active');
-        if (!currentSlide.next().length) {
-          reloadWithDelay(5000); // Recarga la página con delay de 5 segundos
-        }
-      });
-    });
-
-    $(document).ready(function () {
-      var selectedCasino = Cookies.get("casino_id");
-    if (selectedCasino === undefined) {
-      // Si no hay una cookie, abre el modal automáticamente
-      $('#casinoModal').modal('show');
-    }
-    });
-
-   
-    function guardarCasino() {
-      var selectedCasinoId = document.getElementById("casinoSelect").value;
-    Cookies.set("casino_id", selectedCasinoId, { expires: 365 }); // Guarda el id del casino en la cookie por 7 días
-    $('#casinoModal').modal('hide'); // Cierra el modal
-    location.reload();
-    }
-
-  </script>
 </body>
-
 </html>

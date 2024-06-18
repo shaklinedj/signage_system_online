@@ -72,4 +72,3 @@ if ($casino_id !== null) {
   }
   unset($handle);
   header("Location: ../");
-?>
