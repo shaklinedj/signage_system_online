@@ -62,7 +62,7 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
         } else {
           setTimeout(function () {
             $('#carousel1').carousel('next');
-          }, 1000); // Tiempo en milisegundos para las imágenes (5 segundos)
+          }, 8000); // Tiempo en milisegundos para las imágenes (5 segundos)
         }
       });
 
