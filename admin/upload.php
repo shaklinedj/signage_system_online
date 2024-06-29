@@ -15,7 +15,7 @@ session_start();
 //obtener casino de usuario logueado
 $casino_id= isset($_SESSION["casino_id"])?$_SESSION["casino_id"]:NULL;
 
-
+/*
  // Verificar si el casino_id está disponible
 if ($casino_id !== null) {
   $handle = new Upload($_FILES["image"]);
@@ -47,6 +47,42 @@ if ($casino_id !== null) {
   header("Location: ../");
 
 }else {
+  echo "Error: No se pudo obtener el casino_id del usuario.";
+}
+*/
+
+if ($casino_id !== null) {
+  if (isset($_FILES['file'])) {
+      $handle = new Upload($_FILES['file']);
+
+      if ($handle->uploaded) {
+          $token = bin2hex(random_bytes(16));
+          $handle->file_new_name_body = 'img_' . $token;
+          $handle->Process("uploads/");
+
+          if ($handle->processed) {
+              // Obtener la fecha seleccionada del input
+              $fecha = $_POST["fecha"];
+
+              // Convertir la fecha seleccionada al formato de MySQL
+              $fecha_mysql = date("Y-m-d", strtotime($fecha));
+
+              // Usar la función insert_img de la librería db.php
+              insert_img($casino_id, "uploads/", $handle->file_dst_name, $fecha_mysql);
+              echo 'La imagen se ha subido correctamente.';
+          } else {
+              echo 'Error: ' . $handle->error;
+          }
+
+          // Liberar recursos
+          unset($handle);
+      } else {
+          echo 'Error: ' . $handle->error;
+      }
+  } else {
+      echo 'No se ha seleccionado ningún archivo.';
+  }
+} else {
   echo "Error: No se pudo obtener el casino_id del usuario.";
 }
 

@@ -361,4 +361,15 @@ function get_imgs_fecha($fecha) {
   }
 }
   
-  
+  // Función para obtener la última actualización de las tablas
+function get_last_update() {
+    $con = con();
+    $result = mysqli_query($con, "SELECT MAX(created_at) as last_update FROM (
+        SELECT created_at FROM image
+        UNION ALL
+        SELECT created_at FROM video
+    ) as updates");
+
+    $row = mysqli_fetch_assoc($result);
+    return $row['last_update'];
+}

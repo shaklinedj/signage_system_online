@@ -1,39 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-
-	
-		<title>Subir Multiples Imagenes y/o Archivos - By Evilnapsis</title>
-	  <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Imágenes</title>
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css">
+    
+    <style>
+        .dropzone {
+            border: 2px dashed #007bff;
+            border-radius: 5px;
+            background: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            font-size: 16px;
+            color: #555;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
 </head>
-	<body>
-<?php include("navbar_2.php");?>
+<body>
+    <?php include("navbar_2.php");?>
 
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">		
-		<h1>Subir imagenes o archivos</h1>
-		<form enctype="multipart/form-data" method="post" action="upload.php">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Subir imágenes</h1>
+                <form action="upload.php" class="dropzone" id="my-dropzone">
+                    <div class="form-group">
+                        <label for="fecha">Fecha Término</label>
+                        <input type="date" id="fecha" name="fecha" class="form-group">
+                    </div>
+                    <div class="dz-message">
+                        Arrastra y suelta tus imágenes aquí o haz clic para seleccionar
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-  <div class="form-group">
-    <label for="fecha">Fecha Termino</label>
-   <!-- <input type="text"  name="title" class="form-control"  placeholder="Texto a mostrar">-->
-	<input type="date"  id="fecha"name="fecha" class="form-group" >
-  </div>
-  <div class="form-group">
-    <label for="image">Imagen</label>
-    <input type="file" id="image" name="image" required>
-  </div>
-
-		<input type="submit" value="Subir imagen" class="btn btn-primary">
-		</form>
-	</div>
-</div>
-</div>
-	</body>
-
-</DOC>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+    
+    
+    <script>
+        Dropzone.options.myDropzone = {
+            acceptedFiles: 'image/*',
+            autoProcessQueue: true,
+            init: function () {
+                this.on("sending", function(file, xhr, formData) {
+                    formData.append("fecha", $("#fecha").val());
+                });
+                this.on("success", function (file, response) {
+                    console.log("Archivo subido con éxito:", response);
+                });
+                this.on("error", function (file, response) {
+                    console.log("Error al subir el archivo:", response);
+                });
+                this.on("queuecomplete", function() {
+					setTimeout(function() {
+                        window.location.href = "../";
+                    }, 4000); // Espera 4 segundos y redirige
+                    
+                });
+            }
+        };
+    </script>
+</body>
+</html>

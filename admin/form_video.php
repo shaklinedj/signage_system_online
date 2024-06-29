@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,6 +11,7 @@
 				border: 1px solid #ddd;
 				padding: 1px;
 				border-radius: 3px;
+				margin-top: 20px; /* Añadido para un poco de espacio */
 			}
 
 			.bar {
@@ -61,7 +61,11 @@
 			</div>
 		</div>
 
+		<!-- Incluye jQuery -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<!-- Incluye el plugin jquery.form -->
+		<script src="jquery.form.min.js"></script> <!-- Asegúrate de actualizar esta ruta -->
+
 		<script>
 			$(document).ready(function() {
 				var bar = $('.bar');
