@@ -1,23 +1,19 @@
 <?php
-include "navbar_2.php";
+
+include"navbar_2.php";
 include "db.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["casino_id"])) {
-    $_SESSION["casino_id"] = $_POST["casino_id"];
-    header("Location: " . $_SERVER["PHP_SELF"]);
-    exit;
-}
-
 $casino_id = $_SESSION["casino_id"];
+
 $images = get_imgs($casino_id);
 $videos = get_vids($casino_id);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Publicidad Dreams Coyhaique</title>
+  <title>publicidad Dreams Coyhaique</title>
   <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="styles.css"> <!-- Asegúrate de tener un archivo de estilos CSS -->
   <link rel="shortcut icon" href="slotmachine.ico" />
 </head>
 <body>
@@ -33,7 +29,7 @@ $videos = get_vids($casino_id);
           <?php if (count($images) > 0 || count($videos) > 0): ?>
             <?php foreach($images as $img): ?>
               <div class="grid-item">
-                <img src="<?php echo $img->folder.$img->src; ?>" style="width:100%;"  loading="lazy">
+                <img src="<?php echo $img->folder.$img->src; ?>" style="width:100%;">
                 <p><?php echo $img->fecha; ?></p>
                 <div>
                   <a class="btn btn-success" href="./download.php?id=<?php echo $img->id; ?>">Descargar</a> 
@@ -55,7 +51,7 @@ $videos = get_vids($casino_id);
               </div>
             <?php endforeach; ?>
           <?php else: ?>
-            <h4 class="alert alert-warning">No hay imagenes ni videos.</h4>
+            <h4 class="alert alert-warning">No hay imágenes ni videos.</h4>
           <?php endif; ?>
         </div>
       </div>

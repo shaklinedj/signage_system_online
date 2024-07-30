@@ -177,7 +177,7 @@ $filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) 
     </div>
   </div>
   <?php else: ?>
-  <h4 class="alert alert-warning">No hay im�genes</h4>
+  <h4 class="alert alert-warning">No hay imagenes ni videos</h4>
   <?php endif; ?>
 
   <div class="modal fade" id="casinoModal" tabindex="-1" role="dialog" aria-labelledby="casinoModalLabel">
