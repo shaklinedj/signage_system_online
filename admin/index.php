@@ -1,6 +1,6 @@
 <?php
 
-include("navbar_2.php");
+include"navbar_2.php";
 include "db.php";
 
 $casino_id = $_SESSION["casino_id"];
