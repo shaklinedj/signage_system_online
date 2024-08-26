@@ -68,6 +68,7 @@
                 });
             }
         };
+<<<<<<< HEAD
    
         // Function to set the minimum date and pre-select a date
         function setupDateInput() {
@@ -82,6 +83,8 @@
 
         // Call the function when the page loads
         window.onload = setupDateInput;
+=======
+>>>>>>> 8f0917a70f0fd481e63be9ae0a0b5a11e478a490
     </script>
 </body>
 </html>
