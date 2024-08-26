@@ -8,8 +8,8 @@
   
 </head>
 <body>
-  <?php include("../admin/navbar.php");
-        include("../login-master/config.php");
+  <?php include"../admin/navbar.php";
+        include"../login-master/config.php";
   ?>
         
   <div class="text-center">

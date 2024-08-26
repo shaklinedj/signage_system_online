@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 // Check if the user is logged in, if not then redirect him to login page
@@ -8,89 +7,146 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
-// Si el usuario no es de tipo "user", redirigirlo según su rol
+// Redirigir según el rol
 if ($_SESSION["role"] !== "user") {
     if ($_SESSION["role"] === "admin") {
-        // Si es admin, redirigir al panel de administrador
         header("location: ../administrador");
         exit;
     } elseif ($_SESSION["role"] === "prev") {
-        // Si es prev, redirigir al panel de prev
         header("location: ../prev");
         exit;
     } else {
-        // Si el rol no es reconocido, redirigir al inicio de sesión
         header("location: ../");
         exit;
     }
 }
+
 // Include config file
 require_once "../login-master/config.php";
 
 // Function to get the casino name by casino_id
-function getCasinoName($link, $casino_id)
-{
+function getCasinoName($link, $casino_id) {
     $sql = "SELECT casino FROM casino WHERE id = ?";
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "i", $casino_id);
         if (mysqli_stmt_execute($stmt)) {
             mysqli_stmt_store_result($stmt);
-
-            // Añade este bloque para manejar el caso en que no hay resultados
             if (mysqli_stmt_num_rows($stmt) == 1) {
                 mysqli_stmt_bind_result($stmt, $nombre);
                 if (mysqli_stmt_fetch($stmt)) {
                     mysqli_stmt_close($stmt);
                     return $nombre;
                 }
-            } else {
-                // Maneja el caso en que no hay resultados
-                echo "No se encontraron resultados para el casino ID: " . $casino_id;
-                mysqli_stmt_close($stmt);
-                return "Sin resultados";
             }
-        } else {
-            // Maneja el caso de error en la ejecución
-            echo "Error en la ejecución de la consulta: " . mysqli_stmt_error($stmt);
-            mysqli_stmt_close($stmt);
-            return "Error en la consulta";
         }
-    } else {
-        // Maneja el caso de error en la preparación de la consulta
-        echo "Error al preparar la consulta: " . mysqli_error($link);
-        return "Error en la consulta";
     }
+    return "Sin resultados";
 }
 
+// Function to get all casinos
+function getAllCasinos($link) {
+    $sql = "SELECT id, casino FROM casino";
+    $result = mysqli_query($link, $sql);
+    $casinos = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $casinos[] = $row;
+    }
+    return $casinos;
+}
+
+// Handle casino change
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["casino_id"])) {
+    $_SESSION["casino_id"] = $_POST["casino_id"];
+    header("Location: " . $_SERVER["REQUEST_URI"]);
+    exit;
+}
+
+$casino_id = $_SESSION["casino_id"];
+$casino_name = getCasinoName($link, $casino_id);
+$casinos = getAllCasinos($link);
 ?>
 <!DOCTYPE html>
-<link rel="shortcut icon" href="../slotmachine.ico" />
-<nav class="navbar navbar-inverse">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    
+    <link rel="shortcut icon" href="../slotmachine.ico">
+    <style>
+        .navbar-custom {
+            background-color: #333;
+            border-color: #080808;
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .navbar-nav > li > a {
+            color: #bbb;
+        }
+        .navbar-custom .navbar-brand:hover,
+        .navbar-custom .navbar-nav > li > a:hover {
+            color: white;
+        }
+        .dropdown-casino .dropdown-toggle {
+            background-color: #444;
+            border-color: #333;
+            color: #fff;
+        }
+        .dropdown-casino .dropdown-menu {
+            background-color: #444;
+            border-color: #333;
+        }
+        .dropdown-casino .dropdown-menu > li > a {
+            color: #fff;
+        }
+        .dropdown-casino .dropdown-menu > li > a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-custom navbar-inverse">
+    <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand" href="#">Sistema de Publicidad</a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <?php
-                    $casino_id = $_SESSION["casino_id"];
-                    $casino_name = getCasinoName($link, $casino_id);
-                    echo "<a>Hola, " . htmlspecialchars($_SESSION["username"]) . " - bienvenido al sistema de publicidad Dreams  " . $casino_name . "</a>";
-                    ?>
+                    <p class="navbar-text">Hola, <?php echo htmlspecialchars($_SESSION["username"]); ?> - Bienvenido al sistema de publicidad Dreams</p>
+                </li>
+                <li class="dropdown dropdown-casino">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="glyphicon glyphicon-home"></i> <?php echo $casino_name; ?> <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <?php foreach ($casinos as $casino): ?>
+                            <li>
+                                <a href="#" onclick="event.preventDefault(); document.getElementById('casinoForm<?php echo $casino['id']; ?>').submit();">
+                                    <?php echo htmlspecialchars($casino['casino']); ?>
+                                </a>
+                                <form id="casinoForm<?php echo $casino['id']; ?>" action="" method="POST" style="display: none;">
+                                    <input type="hidden" name="casino_id" value="<?php echo $casino['id']; ?>">
+                                </form>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
                 </li>
                 <li><a href="./">Inicio</a></li>
                 <li><a href="../carrusel" target="_blank">Ver carousel</a></li>
                 <li><a href="../login-master/logout.php">Salir</a></li>
             </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
 </nav>
+
+<script src="../bootstrap/js/jquery.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

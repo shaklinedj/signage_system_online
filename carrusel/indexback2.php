@@ -1,0 +1,81 @@
+<?php
+include "../admin/db.php";
+$casinos = get_casinos(); 
+$images = get_imgs_back();
+$videos = get_vids_back();
+
+$selectedCasinoId = isset($_COOKIE['casino_id']) ? $_COOKIE['casino_id'] : null;
+$filteredImages = array_filter($images, function ($img) use ($selectedCasinoId) {
+    return $img->casino_id == $selectedCasinoId;
+});
+$filteredVideos = array_filter($videos, function ($vid) use ($selectedCasinoId) {
+  return $vid->casino_id == $selectedCasinoId;
+});
+?>
+
+<!DOCTYPE html >
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carouseles</title>
+  <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+  <link rel="shortcut icon" href="../admin/slotmachine.ico" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<script src="index.js"></script>
+
+  
+</head>
+<body>
+  <?php if(count($filteredImages) > 0 || count($filteredVideos) > 0): ?>
+  <div id="carousel1" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+      <?php $cnt = 0; foreach($filteredImages as $img): ?>
+      <div class="item <?php if($cnt == 0) {echo 'active';} ?>">
+        <img src="<?php echo '../admin/'.$img->folder.$img->src; ?>" alt="Imagen" loading="lazy">
+      </div>
+      <?php $cnt++; endforeach; ?>
+      <?php foreach($filteredVideos as $vid): ?>
+      <div class="item">
+        <video class="full-width-video" id="video<?php echo $cnt; ?>" muted>
+          <source src="<?php echo '../admin/'.$vid->folder.$vid->src; ?>" type="video/mp4">
+        </video>
+      </div>
+      <?php $cnt++; endforeach; ?>
+    </div>
+  </div>
+  <?php else: ?>
+  <h4 class="alert alert-warning">No hay imagenes ni videos</h4>
+  <?php endif; ?>
+
+  <div class="modal fade" id="casinoModal" tabindex="-1" role="dialog" aria-labelledby="casinoModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="casinoModalLabel">Selecciona un casino</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Elige tu casino favorito:</p>
+          <select id="casinoSelect" class="form-control">
+          <?php
+            $casinos = get_casinos();
+            foreach ($casinos as $id => $casino) {
+              echo "<option value='$id'>$casino</option>";
+            }
+          ?>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="guardarCasino()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

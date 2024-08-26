@@ -199,26 +199,7 @@ function get_img($id){
 
  return $image;
 }
-function del($id){
-    $con = con();
 
-    // Utilizar consulta preparada para evitar inyección de SQL
-    $stmt = $con->prepare("DELETE FROM image WHERE id = ?");
-
-    // Verificar si la consulta preparada se realizó con éxito
-    if ($stmt) {
-        // Vincular parámetros y ejecutar la consulta
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->close();
-    } else {
-        // Manejar errores de manera segura
-        error_log("Error en la preparación de la consulta: " . $con->error);
-    }
-
-    // Cerrar conexión después de su uso
-    mysqli_close($con);
-}
 
 //funcion get video by id
 function get_vid($id){
@@ -246,6 +227,28 @@ function get_vid($id){
     return $video;
 }
 //funcion delete video
+
+
+function del($id){
+    $con = con();
+
+    // Utilizar consulta preparada para evitar inyección de SQL
+    $stmt = $con->prepare("DELETE FROM image WHERE id = ?");
+
+    // Verificar si la consulta preparada se realizó con éxito
+    if ($stmt) {
+        // Vincular parámetros y ejecutar la consulta
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+    } else {
+        // Manejar errores de manera segura
+        error_log("Error en la preparación de la consulta: " . $con->error);
+    }
+
+    // Cerrar conexión después de su uso
+    mysqli_close($con);
+}
 function delvid($id){
     $con = con();
 
@@ -361,4 +364,15 @@ function get_imgs_fecha($fecha) {
   }
 }
   
-  
+  // Función para obtener la última actualización de las tablas
+function get_last_update() {
+    $con = con();
+    $result = mysqli_query($con, "SELECT MAX(created_at) as last_update FROM (
+        SELECT created_at FROM image
+        UNION ALL
+        SELECT created_at FROM video
+    ) as updates");
+
+    $row = mysqli_fetch_assoc($result);
+    return $row['last_update'];
+}

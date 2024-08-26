@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,6 +11,7 @@
 				border: 1px solid #ddd;
 				padding: 1px;
 				border-radius: 3px;
+				margin-top: 20px; /* Añadido para un poco de espacio */
 			}
 
 			.bar {
@@ -61,7 +61,11 @@
 			</div>
 		</div>
 
+		<!-- Incluye jQuery -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<!-- Incluye el plugin jquery.form -->
+		<script src="jquery.form.min.js"></script> <!-- Asegúrate de actualizar esta ruta -->
+
 		<script>
 			$(document).ready(function() {
 				var bar = $('.bar');
@@ -84,6 +88,19 @@
 					}
 				});
 			});
+
+			function setupDateInput() {
+            const today = new Date();
+            const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+            const dateString = nextMonth.toISOString().split('T')[0];
+            
+            const dateInput = document.getElementById('fecha');
+            dateInput.min = dateString;
+            dateInput.value = dateString;  // This pre-selects the date
+        }
+
+        // Call the function when the page loads
+        window.onload = setupDateInput;
 		</script>
 	</body>
 </html>
