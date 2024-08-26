@@ -47,7 +47,7 @@ if ($casino_id !== null) {
 } else {
   echo "Error: No se pudo obtener el casino_id del usuario.";
 }
-*/
+
 
 if ($casino_id !== null) {
   if (isset($_FILES['file'])) {
