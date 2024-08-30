@@ -15,6 +15,8 @@ $media = array_merge(
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="shortcut icon" href="../admin/slotmachine.ico">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
+
 </head>
 <body>
     <?php if (!empty($media)): ?>
@@ -62,6 +64,6 @@ $media = array_merge(
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-    <script src="index.js"></script>
+    <script src="codigo-carrusel-mejorado.js"></script>
 </body>
 </html>

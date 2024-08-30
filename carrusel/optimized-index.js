@@ -9,7 +9,7 @@ $(document).ready(function () {
     // Crear el div del contador una sola vez
     var $counterDisplay = $('<div class="counter">30</div>');
     $('body').append($counterDisplay);  // Añadido una vez al cargar la página
-
+/*
     function checkForUpdates() {
         $.ajax({
             url: '../admin/optimized-check-updates.php',
@@ -31,6 +31,42 @@ $(document).ready(function () {
         });
     }
 
+*/
+
+function checkForUpdates() {
+    $.ajax({
+        url: '../admin/optimized-check-updates.php',
+        method: 'GET',
+        data: { casino_id: selectedCasinoId },
+        success: function (data) {
+            // Actualiza el carrusel si hay cambios en la cantidad de medios
+            if (lastMediaCount === null || lastMediaCount !== data.media_count) {
+                updateCarousel(data.media);
+            }
+            
+            // Guarda la nueva cuenta de medios
+            lastMediaCount = data.media_count;
+            
+            // Comprueba si el número de elementos es 0
+            var $carouselItems = $('#carousel1 .carousel-inner .item');
+            if ($carouselItems.length === 0) {
+                console.log("No hay elementos en el carrusel. Recargando la página en 2 minutos.");
+                
+                // Configura una recarga automática de la página después de 2 minutos
+                setTimeout(function() {
+                    location.reload();
+                }, 30000); // 120,000 milisegundos = 2 minutos
+            }
+        },
+        error: function() {
+            console.log("Error fetching updates, using cache if available.");
+            var cachedData = localStorage.getItem(cacheKey);
+            if (cachedData) {
+                updateCarousel(JSON.parse(cachedData));
+            }
+        }
+    });
+}
 
 
 
@@ -80,7 +116,62 @@ $(document).ready(function () {
 
         handleVideoPlayback(); // Asegúrate de que el video se maneje después de la actualización
     }
+/*
+function updateCarousel(newMedia) {
+    var $carousel = $('#carousel1 .carousel-inner');
+    var currentItems = $carousel.children('.item').toArray();
+    var currentIndex = $carousel.children('.item.active').index();
 
+    // Remove items that are no longer present
+    currentItems.forEach(function(item) {
+        var src = $(item).find('img, video source').attr('src');
+        if (!newMedia.some(media => media.src === src)) {
+            $(item).remove();
+        }
+    });
+
+    // Add new items
+    newMedia.forEach(function(item) {
+        var $existingItem = $carousel.find('img[src="' + item.src + '"], video source[src="' + item.src + '"]').closest('.item');
+        if ($existingItem.length === 0) {
+            var $newItem = $('<div class="item">');
+            if (item.type === 'video') {
+                $newItem.append('<video class="full-width-video" muted><source src="' + item.src + '" type="video/mp4"></video>');
+            } else {
+                $newItem.append('<img src="' + item.src + '" alt="Media" loading="lazy">');
+            }
+            $carousel.append($newItem);
+        }
+    });
+
+    var $items = $carousel.children('.item');
+
+    // Si no hay elementos en el carrusel, recargar la página
+    if ($items.length === 0) {
+        console.log("No items found in the carousel. Reloading the page.");
+        location.reload();
+    } else {
+        // Asegurarse de que el item activo no ha cambiado
+        if (currentIndex >= 0 && currentIndex < $items.length) {
+            $items.removeClass('active');
+            $items.eq(currentIndex).addClass('active');
+        } else {
+            $items.removeClass('active');
+            $items.first().addClass('active'); // Marcar el primer elemento como activo
+        }
+
+        // Reanudar el carrusel si ya está inicializado
+        if ($('#carousel1').data('bs.carousel')) {
+            $('#carousel1').carousel('cycle');
+        } else {
+            initializeCarousel(); // Inicializar el carrusel si no está activo
+        }
+
+        handleVideoPlayback(); // Asegurarse de que el video se maneje después de la actualización
+    }
+}
+
+*/
     function initializeCarousel() {
         var cachedData = localStorage.getItem(cacheKey);
         if (cachedData) {
