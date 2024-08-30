@@ -1,0 +1,20 @@
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  align-items: end;
+}
+
+.grid-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Añadir al archivo styles.css */
+.selected-item {
+  opacity: 0.6;
+  border: 2px solid red;
+  transition: opacity 0.3s ease, border 0.3s ease;
+}
+
