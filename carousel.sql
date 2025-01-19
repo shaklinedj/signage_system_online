@@ -121,7 +121,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `created_at`, `role`, `casino_id`) VALUES
 (1, 'Hlaurel', '$2y$10$DKrwyE6Uz3fBEje.bqd98.ySupbEQa8mtafDSfEDjRKenTkh3e/R2', '2023-11-28 17:57:51', 'user', 2),
-(4, 'admin', '$2y$10$rDNGlODPz0dh4rxR/0K0YujVemjyMb4ddgzZ5SiQ9oN8IRzBM3DNW', '2023-11-30 15:06:33', 'admin', 0),
+(4, 'admin', '$10$ELWROSZo1Y6i5BHNnMeWSuSI4zWMyiwx/okq5VjJS32xuh1TMoRDe', '2023-11-30 15:06:33', 'admin', 0),
 (18, 'Coyhaique', '$2y$10$29k6ozs9daYVOawr2yVkl.9WS04.GFDTQvM5ADWPufZC5VPWLL/2C', '2023-12-12 23:07:41', 'user', 2),
 (21, 'ajeldres', '$2y$10$uci9P9OBkHeVkmUU78tMi.FDqGV9L6YJ.o165y2sCtjMMxb3SuElC', '2024-03-24 17:06:19', 'prev', 2),
 (23, 'ccardenasi', '$2y$10$5aXwkN4hB.uIneTN5NVEmesNhIpbYmyoo/s2f9wzUM7A5skFJahvS', '2024-06-12 09:55:34', 'user', 2),
