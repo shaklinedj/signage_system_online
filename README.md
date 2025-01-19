@@ -6,6 +6,7 @@ pagina del admin donde puede ingresar usuarios o resetear contraseñas
 
 
 usuario princioal, admin
+password :         publicidad
 
 ![image](https://github.com/user-attachments/assets/543a1c1a-a82d-4c03-9b88-abb8260d9ef4)
 pagina donde se ven imagenes o videos en el sistema
