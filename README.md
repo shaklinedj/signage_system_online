@@ -3,6 +3,10 @@ sistema de publicidad funciona desde el navegador
 pagina de inicio
 ![image](https://github.com/user-attachments/assets/9bff3ef3-2288-46bf-923e-f277b229a270)
 pagina del admin donde puede ingresar usuarios o resetear contraseñas
+
+
+usuario princioal, admin
+
 ![image](https://github.com/user-attachments/assets/543a1c1a-a82d-4c03-9b88-abb8260d9ef4)
 pagina donde se ven imagenes o videos en el sistema
 ![image](https://github.com/user-attachments/assets/0f89a411-e1e6-4a2a-96a2-94926f596aae)
