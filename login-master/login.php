@@ -140,6 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <a class="font-italic isai5" href="register.php">Registrarse</a>
                 </div>
                 <input name="btningresar" class="btn" type="submit" value="INICIAR SESION">
+                <a href="google-login.php" class="btn btn-danger" style="text-decoration:none;color:white;width:100%;margin-top:10px;">Iniciar sesión con Google</a>
             </form>
         </div>
     </div>
